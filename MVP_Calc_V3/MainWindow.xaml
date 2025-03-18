@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVP_Calc_V3"
+        KeyDown="Window_KeyDown"
         mc:Ignorable="d"
         Title="Calculator" Height="780" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -74,10 +75,10 @@
 
             <Menu Grid.Row="8" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0">
                 <MenuItem Name="File" Header="File" FontSize="20" FontWeight="Bold" Click="File_Click">
-                    <MenuItem Name="Cut" Header="Cut" Command="{Binding CutCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
-                    <MenuItem Name="Copy" Header="Copy" Command="{Binding CopyCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
-                    <MenuItem Name="Paste" Header="Paste" Command="{Binding PasteCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
-                    <MenuItem Name="DigitGrouping" Header="Digit Grouping" Command="{Binding ToggleDigitGroupingCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
+                    <MenuItem Name="Cut" Header="Cut" Click="Cut_Click" Command="{Binding CutCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
+                    <MenuItem Name="Copy" Header="Copy" Click="Copy_Click" Command="{Binding CopyCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
+                    <MenuItem Name="Paste" Header="Paste" Click="Paste_Click" Command="{Binding PasteCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
+                    <MenuItem Name="DigitGrouping" Header="Digit Grouping" Click="DigitGrouping_Click" Command="{Binding ToggleDigitGroupingCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                 </MenuItem>
 
                 <MenuItem Name="Help" Header="Help" FontSize="20" FontWeight="Bold" Background="#FF6D6D6D" Foreground="#FFE0E0E0" Click="MenuItem_Click">

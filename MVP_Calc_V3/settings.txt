@@ -1,0 +1,3 @@
+DigitGrouping=True
+Mode=Standard
+Base=10

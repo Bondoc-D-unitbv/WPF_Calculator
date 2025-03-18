@@ -15,12 +15,53 @@ namespace MVP_Calc_V3
     {
 
         private Calculator m_calculator = new Calculator();
+        private SettingsManager m_settings_manager = new SettingsManager();
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = m_calculator;
+            LoadUserSettings();
+
+            this.Closing += MainWindow_Closing;
         }
+
+
+        private void LoadUserSettings()
+        {
+            var settings = SettingsManager.LoadSettings();
+
+            if (settings.ContainsKey("DigitGrouping"))
+            {
+                bool.TryParse(settings["DigitGrouping"], out bool isDigitGrouping);
+                m_calculator.IsDigitGroupingEnabled = isDigitGrouping;
+            }
+
+            if (settings.ContainsKey("Mode"))
+            {
+                string mode = settings["Mode"];
+                // Apply mode logic (Standard/Programmer)
+            }
+
+            if (settings.ContainsKey("Base"))
+            {
+                int.TryParse(settings["Base"], out int baseValue);
+                // Apply numerical base logic
+            }
+        }
+
+        private void SaveUserSettings()
+        {
+            var settings = new Dictionary<string, string>
+            {
+                { "DigitGrouping", m_calculator.IsDigitGroupingEnabled.ToString() },
+                { "Mode", m_calculator.CurrentMode },
+                { "Base", m_calculator.SelectedBase.ToString() }
+             };
+
+            SettingsManager.SaveSettings(settings);
+        }
+
 
         private void Digit_Click(object sender, RoutedEventArgs e)
         {
@@ -28,7 +69,7 @@ namespace MVP_Calc_V3
             {
                 char digit = button.Content.ToString()[0];
                 m_calculator.EnterDigit(digit);
-                //UpdateDisplay(); //to implement
+                UpdateDisplay();
             }
         }
 
@@ -47,6 +88,7 @@ namespace MVP_Calc_V3
         private void UpdateDisplay()
         {
             Display.Text = m_calculator.Display;
+            m_calculator.ApplyDigitGrouping();
         }
 
         private void percent_Click(object sender, RoutedEventArgs e)
@@ -183,7 +225,6 @@ namespace MVP_Calc_V3
 
         private void Dot_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the current display already contains a decimal point
             if (!m_calculator.Display.Contains("."))
             {
                 m_calculator.SetDisplay(Display.Text + ".");
@@ -221,12 +262,27 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
-        private void GroupDigits_Click(object sender, RoutedEventArgs e)
+        private void DigitGrouping_Click(object sender, RoutedEventArgs e)
         {
+            m_calculator.ChangeDigitGrouping();
             m_calculator.ApplyDigitGrouping();
-            UpdateDisplay(); 
+            MessageBox.Show("You are grouping digits!");
+            UpdateDisplay();
         }
 
+        private void Cut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Paste_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void Programmer_Click(object sender, RoutedEventArgs e)
         {
@@ -241,6 +297,59 @@ namespace MVP_Calc_V3
         private void File_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D0 && e.Key <= Key.D9) // Numbers 0-9 from main keyboard
+            {
+                m_calculator.EnterDigit((char)('0' + (e.Key - Key.D0)));
+            }
+            else if (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) // Numbers from NumPad
+            {
+                m_calculator.EnterDigit((char)('0' + (e.Key - Key.NumPad0)));
+            }
+            else if (e.Key == Key.OemPlus || e.Key == Key.Add)
+            {
+                m_calculator.EnterOperator("+");
+            }
+            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) 
+            {
+                m_calculator.EnterOperator("-");
+            }
+            else if (e.Key == Key.Multiply)
+            {
+                m_calculator.EnterOperator("*");
+            }
+            else if (e.Key == Key.Divide || e.Key == Key.Oem2) 
+            {
+                m_calculator.EnterOperator("/");
+            }
+            else if (e.Key == Key.Enter || e.Key == Key.Return) 
+            {
+                m_calculator.Equals();
+            }
+            else if (e.Key == Key.Back)
+            {
+                m_calculator.Backspace();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                m_calculator.Clear();
+            }
+            else if (e.Key == Key.OemComma || e.Key == Key.OemPeriod || e.Key == Key.Decimal) 
+            {
+                m_calculator.EnterDigit('.');
+            }
+
+            UpdateDisplay();
+        }
+
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveUserSettings();
         }
     }
 }

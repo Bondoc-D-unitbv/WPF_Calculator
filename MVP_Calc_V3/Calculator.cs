@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace MVP_Calc_V3
 {
@@ -15,6 +16,18 @@ namespace MVP_Calc_V3
         private string _currentOperator;
         private bool _isNewEntry;
         private Stack<double> _memoryStack = new Stack<double>();
+
+
+        private bool _isDigitGroupingEnabled = false;
+        public bool IsDigitGroupingEnabled { get => _isDigitGroupingEnabled; set => _isDigitGroupingEnabled = value; }
+
+        private string currentMode = "Standard";
+        public string CurrentMode { get => currentMode; set => currentMode = value; }
+
+        private int selectedBase = 10;
+        public int SelectedBase { get => selectedBase; set => selectedBase = value; }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,6 +41,8 @@ namespace MVP_Calc_V3
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Display)));
             }
         }
+
+
         public void SetDisplay(string value)
         {
             Display = value;
@@ -44,6 +59,7 @@ namespace MVP_Calc_V3
             {
                 Display += digit;
             }
+            ApplyDigitGrouping();
         }
 
         public void EnterOperator(string op)
@@ -225,12 +241,31 @@ namespace MVP_Calc_V3
             }
         }
 
+
         public void ApplyDigitGrouping()
         {
-            if (double.TryParse(Display, out double value))
+            if (_isDigitGroupingEnabled)
             {
-                Display = value.ToString("N", CultureInfo.CurrentCulture);
+                if (double.TryParse(Display, out double value))
+                {
+                    Display = value.ToString("N", CultureInfo.CurrentCulture);
+                }
+            }
+            else
+            {
+                Display = double.TryParse(Display, out double value)
+                    ? value.ToString(CultureInfo.CurrentCulture)
+                    : Display;
             }
         }
+
+
+
+        public void ChangeDigitGrouping()
+        {
+            _isDigitGroupingEnabled = !_isDigitGroupingEnabled;
+        }
+
+
     }
 }

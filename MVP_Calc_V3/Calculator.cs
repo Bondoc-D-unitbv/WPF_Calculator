@@ -248,15 +248,56 @@ namespace MVP_Calc_V3
             {
                 if (double.TryParse(Display, out double value))
                 {
-                    Display = value.ToString("N", CultureInfo.CurrentCulture);
+                    string valueString = value.ToString(CultureInfo.CurrentCulture);
+
+                    var parts = valueString.Split('.');
+
+                    string integerPart = parts[0];
+
+                    integerPart = GroupDigits(integerPart);
+
+                    if (parts.Length > 1)
+                    {
+                        Display = integerPart + "." + parts[1];
+                    }
+                    else
+                    {
+                        Display = integerPart;
+                    }
                 }
             }
-            else
+            //else
+            //{
+            //    Display = double.TryParse(Display, out double value)
+            //        ? value.ToString(CultureInfo.CurrentCulture)
+            //        : Display;
+            //}
+        }
+
+        private string GroupDigits(string number)
+        {
+            int length = number.Length;
+            if (length <= 3)
+                return number;
+
+            var grouped = new List<char>();
+            int count = 0;
+
+            for (int i = length - 1; i >= 0; i--)
             {
-                Display = double.TryParse(Display, out double value)
-                    ? value.ToString(CultureInfo.CurrentCulture)
-                    : Display;
+                grouped.Add(number[i]);
+                count++;
+
+                if (count == 3 && i != 0)
+                {
+                    grouped.Add(',');
+                    count = 0;
+                }
             }
+
+            grouped.Reverse();
+
+            return new string(grouped.ToArray());
         }
 
 

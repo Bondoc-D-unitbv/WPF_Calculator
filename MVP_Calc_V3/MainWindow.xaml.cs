@@ -87,8 +87,8 @@ namespace MVP_Calc_V3
 
         private void UpdateDisplay()
         {
-            Display.Text = m_calculator.Display;
             m_calculator.ApplyDigitGrouping();
+            Display.Text = m_calculator.Display;
         }
 
         private void percent_Click(object sender, RoutedEventArgs e)

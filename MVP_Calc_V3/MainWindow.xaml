@@ -74,19 +74,15 @@
             <Button Name="Programmer" Content="Programmer" Command="{Binding Elements[7][2].ClickCommand}" Width="150" Height="40" FontSize="20" Margin="5" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" Click="Programmer_Click"/>
 
             <Menu Grid.Row="8" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0">
-                <MenuItem Name="File" Header="File" FontSize="20" FontWeight="Bold" Click="File_Click">
+                <MenuItem Name="File" Header="File" FontSize="20" FontWeight="Bold">
                     <MenuItem Name="Cut" Header="Cut" Click="Cut_Click" Command="{Binding CutCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                     <MenuItem Name="Copy" Header="Copy" Click="Copy_Click" Command="{Binding CopyCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                     <MenuItem Name="Paste" Header="Paste" Click="Paste_Click" Command="{Binding PasteCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                     <MenuItem Name="DigitGrouping" Header="Digit Grouping" Click="DigitGrouping_Click" Command="{Binding ToggleDigitGroupingCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                 </MenuItem>
 
-                <MenuItem Name="Help" Header="Help" FontSize="20" FontWeight="Bold" Background="#FF6D6D6D" Foreground="#FFE0E0E0" Click="MenuItem_Click">
-                    <MenuItem Name="About" Header="About">
-                        <MenuItem.Command>
-                            <Binding Path="ShowAboutCommand"/>
-                        </MenuItem.Command>
-                    </MenuItem>
+                <MenuItem Name="Help" Header="Help" FontSize="20" FontWeight="Bold" Background="#FF6D6D6D" Foreground="#FFE0E0E0">
+                    <MenuItem Name="About" Header="About" Click="About_Click" Command="{Binding AboutCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                 </MenuItem>
             </Menu>
 

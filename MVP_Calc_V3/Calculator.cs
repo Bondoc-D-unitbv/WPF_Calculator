@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 
 namespace MVP_Calc_V3
@@ -13,7 +14,7 @@ namespace MVP_Calc_V3
     {
         private double _currentValue;
         private double _memory;
-        private string _currentOperator;
+        private string? _currentOperator;
         private bool _isNewEntry;
         private Stack<double> _memoryStack = new Stack<double>();
 
@@ -50,16 +51,18 @@ namespace MVP_Calc_V3
 
         public void EnterDigit(char digit)
         {
+            if (digit == '.' && Display.Contains("."))
+                return;
+
             if (_isNewEntry)
             {
-                Display = digit.ToString();
+                Display = (digit == '.') ? "0." : digit.ToString();
                 _isNewEntry = false;
             }
             else
             {
                 Display += digit;
             }
-            ApplyDigitGrouping();
         }
 
         public void EnterOperator(string op)
@@ -246,15 +249,17 @@ namespace MVP_Calc_V3
         {
             if (_isDigitGroupingEnabled)
             {
+                //if (Display == ".")
+                //{
+                //    return;
+                //}
                 if (double.TryParse(Display, out double value))
                 {
                     string valueString = value.ToString(CultureInfo.CurrentCulture);
 
                     var parts = valueString.Split('.');
 
-                    string integerPart = parts[0];
-
-                    integerPart = GroupDigits(integerPart);
+                    string integerPart = GroupDigits(parts[0]);
 
                     if (parts.Length > 1)
                     {
@@ -266,12 +271,21 @@ namespace MVP_Calc_V3
                     }
                 }
             }
-            //else
-            //{
-            //    Display = double.TryParse(Display, out double value)
-            //        ? value.ToString(CultureInfo.CurrentCulture)
-            //        : Display;
-            //}
+            else if (Display.EndsWith("."))
+            {
+                Display = GroupDigits(Display.TrimEnd('.')) + ".";
+            }
+            else
+            {
+                Display = double.TryParse(Display, out double value)
+                    ? value.ToString(CultureInfo.CurrentCulture)
+                    : Display;
+                if (Display.EndsWith("."))
+                {
+                    Display = (Display.TrimEnd('.')) + ".";
+                }
+            }
+
         }
 
         private string GroupDigits(string number)
@@ -305,6 +319,35 @@ namespace MVP_Calc_V3
         public void ChangeDigitGrouping()
         {
             _isDigitGroupingEnabled = !_isDigitGroupingEnabled;
+        }
+
+
+        //-------------------------------------------------------------
+        private string _clipboard = ""; // Manual clipboard storage
+
+        public void Cut()
+        {
+            if (!string.IsNullOrEmpty(Display))
+            {
+                _clipboard = Display;
+                Display = "";
+            }
+        }
+
+        public void Copy()
+        {
+            if (!string.IsNullOrEmpty(Display))
+            {
+                _clipboard = Display;
+            }
+        }
+
+        public void Paste()
+        {
+            if (!string.IsNullOrEmpty(_clipboard))
+            {
+                Display += _clipboard;
+            }
         }
 
 

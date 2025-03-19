@@ -115,6 +115,8 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
+
+
         private void Ce_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.ClearEntry();
@@ -138,6 +140,8 @@ namespace MVP_Calc_V3
             m_calculator.EnterOperator("/");
             UpdateDisplay();
         }
+
+
 
         private void seven_Click(object sender, RoutedEventArgs e)
         {
@@ -163,6 +167,8 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
+
+
         private void four_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.EnterDigit('4');
@@ -186,6 +192,8 @@ namespace MVP_Calc_V3
             m_calculator.EnterOperator("-");
             UpdateDisplay();
         }
+
+
 
         private void one_Click(object sender, RoutedEventArgs e)
         {
@@ -211,6 +219,8 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
+
+
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.InvertSign();
@@ -225,11 +235,8 @@ namespace MVP_Calc_V3
 
         private void Dot_Click(object sender, RoutedEventArgs e)
         {
-            if (!m_calculator.Display.Contains("."))
-            {
-                m_calculator.SetDisplay(Display.Text + ".");
-                UpdateDisplay();
-            }
+            m_calculator.EnterDigit('.');
+            UpdateDisplay();
         }
 
         private void Equals_Click(object sender, RoutedEventArgs e)
@@ -237,6 +244,8 @@ namespace MVP_Calc_V3
             m_calculator.Equals();
             UpdateDisplay();
         }
+
+
 
         private void MC_Click(object sender, RoutedEventArgs e)
         {
@@ -262,43 +271,38 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
+
+
         private void DigitGrouping_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.ChangeDigitGrouping();
-            m_calculator.ApplyDigitGrouping();
-            MessageBox.Show("You are grouping digits!");
+            //MessageBox.Show("You are grouping digits!");
             UpdateDisplay();
         }
 
         private void Cut_Click(object sender, RoutedEventArgs e)
         {
-
+            m_calculator.Cut();
+            UpdateDisplay();
         }
         private void Copy_Click(object sender, RoutedEventArgs e)
         {
-
+            m_calculator.Copy();
+            UpdateDisplay();
         }
 
         private void Paste_Click(object sender, RoutedEventArgs e)
         {
-
+            m_calculator.Paste();
+            UpdateDisplay();
         }
+
+
 
         private void Programmer_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void File_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -346,7 +350,11 @@ namespace MVP_Calc_V3
             UpdateDisplay();
         }
 
-
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Aplicație dezvoltată de: \n" +
+                "Bondoc Daniel, 10LF331", "About");
+        }
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveUserSettings();

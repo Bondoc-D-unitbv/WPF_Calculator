@@ -33,10 +33,6 @@ namespace MVP_Calc_V3
         private string currentMode = "Standard";
         public string CurrentMode { get => currentMode; set => currentMode = value; }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
         private string _display = "0";
         public string Display
         {
@@ -183,6 +179,7 @@ namespace MVP_Calc_V3
         public void MemoryClear()
         {
             _memory = 0;
+            _memoryStack.Clear();
         }
 
 

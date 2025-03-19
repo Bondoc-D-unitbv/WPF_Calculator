@@ -14,6 +14,14 @@ namespace MVP_Calc_V3
             InitializeComponent();
             _memoryStack = memoryStack;
             UpdateMemoryList();
+
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow != null)
+            {
+                this.Owner = mainWindow;
+                this.Left = mainWindow.Left + mainWindow.Width - this.Width; 
+                this.Top = mainWindow.Top;   
+            }
         }
 
         private void UpdateMemoryList()

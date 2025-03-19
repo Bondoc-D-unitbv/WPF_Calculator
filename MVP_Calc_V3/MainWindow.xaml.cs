@@ -17,7 +17,6 @@ namespace MVP_Calc_V3
         private Calculator m_calculator = new Calculator();
         private SettingsManager m_settings_manager = new SettingsManager();
         private ProgrammerMode _programmerWindow;
-        private bool programmerModeEnabled;
 
         public MainWindow()
         {
@@ -282,13 +281,21 @@ namespace MVP_Calc_V3
 
 
 
+
+
         private void Mc_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryClear();
             UpdateDisplay();
         }
 
-        private void MPlus_Click_1(object sender, RoutedEventArgs e)
+        private void Mr_Click(object sender, RoutedEventArgs e)
+        {
+            m_calculator.MemoryRecall();
+            UpdateDisplay();
+        }
+
+        private void MPlus_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryAdd();
             m_calculator.MemoryStackPush();
@@ -303,7 +310,8 @@ namespace MVP_Calc_V3
 
         private void Ms_Click(object sender, RoutedEventArgs e)
         {
-            m_calculator.MemoryRecall();
+            m_calculator.MemoryStore();
+            m_calculator.MemoryStackPush();
             UpdateDisplay();
         }
 

@@ -36,13 +36,15 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Name="Mc"           Content="MC" Command="{Binding Elements[0][0].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mc_Click"/>
-            <Button Name="Mplus"        Content="M+" Command="{Binding Elements[0][1].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MPlus_Click_1"/>
-            <Button Name="Mminus"       Content="M-" Command="{Binding Elements[0][2].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mminus_Click"/>
-            <Button Name="Ms"           Content="MS" Command="{Binding Elements[0][3].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Ms_Click"/>
-            <Button Name="MemoryShow"   Content="Mˇ" Command="{Binding Elements[0][4].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="4" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MemoryShow_Click"/>
+            <Button Name="Mc"           Content="MC" Command="{Binding Elements[0][0].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mc_Click"/>
+            <Button Name="Mr"           Content="MR" Command="{Binding Elements[0][1].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mr_Click"/>
+            <Button Name="Mplus"        Content="M+" Command="{Binding Elements[0][2].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MPlus_Click"/>
+            <Button Name="Mminus"       Content="M-" Command="{Binding Elements[0][3].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mminus_Click"/>
+            <Button Name="Ms"           Content="MS" Command="{Binding Elements[0][4].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="4" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Ms_Click"/>
+            <Button Name="MemoryShow"   Content="Mˇ" Command="{Binding Elements[0][5].ClickCommand}" Width="45" Height="40" FontSize="18" Margin="5" Grid.Column="5" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MemoryShow_Click"/>
         </Grid>
 
 

@@ -13,22 +13,29 @@ namespace MVP_Calc_V3
     public class Calculator
     {
         private double _currentValue;
-        private double _memory;
         private string? _currentOperator;
         private bool _isNewEntry;
+
+        private double _memory;
         private Stack<double> _memoryStack = new Stack<double>();
+
         private const int MaxDisplayLength = 16;
+
 
         private int c_base;
         public int c_Base { get => c_base; set => c_base = value; }
 
         private bool _isDigitGroupingEnabled = false;
+
         public bool IsDigitGroupingEnabled { get => _isDigitGroupingEnabled; set => _isDigitGroupingEnabled = value; }
+
 
         private string currentMode = "Standard";
         public string CurrentMode { get => currentMode; set => currentMode = value; }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         private string _display = "0";
         public string Display
@@ -56,10 +63,14 @@ namespace MVP_Calc_V3
             }
         }
 
-
-        public void SetDisplay(string value)
+        private string _displayGrouped = "0";
+        public string DisplayGrouped
         {
-            Display = value;
+            get => _displayGrouped;
+            set
+            {
+                _displayGrouped = value;
+            }
         }
 
         public void EnterDigit(char digit)
@@ -171,6 +182,8 @@ namespace MVP_Calc_V3
             _memory = 0;
         }
 
+        //-------------------------------------------------------------
+
         public void MemoryAdd()
         {
             if (double.TryParse(Display, out double value))
@@ -199,6 +212,8 @@ namespace MVP_Calc_V3
         {
             return string.Join(", ", _memoryStack);
         }
+
+        //-------------------------------------------------------------
 
         public void SquareRoot()
         {
@@ -259,15 +274,19 @@ namespace MVP_Calc_V3
         }
 
 
-        public void ApplyDigitGrouping()
+        //-------------------------------------------------------------
+
+        public bool ApplyDigitGrouping()
         {
+            DisplayGrouped = Display;
             if (_isDigitGroupingEnabled)
             {
-                //if (Display == ".")
-                //{
-                //    return;
-                //}
-                if (double.TryParse(Display, out double value))
+                if (DisplayGrouped.EndsWith("."))
+                {
+                    DisplayGrouped = GroupDigits(DisplayGrouped.TrimEnd('.')) + ".";
+                }
+
+                if (double.TryParse(DisplayGrouped, out double value))
                 {
                     string valueString = value.ToString(CultureInfo.CurrentCulture);
 
@@ -277,17 +296,19 @@ namespace MVP_Calc_V3
 
                     if (parts.Length > 1)
                     {
-                        Display = integerPart + "." + parts[1];
+                        DisplayGrouped = integerPart + "." + parts[1];
                     }
                     else
                     {
-                        Display = integerPart;
+                        DisplayGrouped = integerPart;
                     }
                 }
+                return true;
             }
-            else if (Display.EndsWith("."))
+            else if (DisplayGrouped.EndsWith("."))
             {
-                Display = GroupDigits(Display.TrimEnd('.')) + ".";
+                DisplayGrouped = GroupDigits(DisplayGrouped.TrimEnd('.')) + ".";
+                return false;
             }
             else
             {
@@ -298,6 +319,7 @@ namespace MVP_Calc_V3
                 {
                     Display = (Display.TrimEnd('.')) + ".";
                 }
+                return false;
             }
 
         }
@@ -337,7 +359,7 @@ namespace MVP_Calc_V3
 
 
         //-------------------------------------------------------------
-        private string _clipboard = ""; // Manual clipboard storage
+        private string _clipboard = ""; 
 
         public void Cut()
         {

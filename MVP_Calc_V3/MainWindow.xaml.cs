@@ -102,9 +102,15 @@ namespace MVP_Calc_V3
 
         private void UpdateDisplay()
         {
-            m_calculator.ApplyDigitGrouping();
+            if(m_calculator.ApplyDigitGrouping())
+            {
+                Display.Text = m_calculator.DisplayGrouped;
+            }
+            else
+            {
+                Display.Text = m_calculator.Display;
+            }
             UpdateProgrammerMode();
-            Display.Text = m_calculator.Display;
         }
 
         private void UpdateProgrammerMode()
@@ -280,6 +286,7 @@ namespace MVP_Calc_V3
         private void MPlus_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryAdd();
+            m_calculator.MemoryStackPush();
             UpdateDisplay();
         }
 

@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:MVP_Calc_V3"
         KeyDown="Window_KeyDown"
         mc:Ignorable="d"
-        Title="Calculator" Height="780" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Calculator" 
+        Height="780" Width="360" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Loaded="MainWindow_Loaded">
     <Grid>
         <Grid Margin="10">
             <Grid.RowDefinitions>

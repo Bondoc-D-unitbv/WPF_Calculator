@@ -16,6 +16,8 @@ namespace MVP_Calc_V3
 
         private Calculator m_calculator = new Calculator();
         private SettingsManager m_settings_manager = new SettingsManager();
+        private ProgrammerMode _programmerWindow;
+        private bool programmerModeEnabled;
 
         public MainWindow()
         {
@@ -26,6 +28,12 @@ namespace MVP_Calc_V3
             this.Closing += MainWindow_Closing;
         }
 
+        private bool _isMainWindowLoaded = false; // Flag to track if MainWindow is loaded
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _isMainWindowLoaded = true;
+        }
 
         private void LoadUserSettings()
         {
@@ -40,13 +48,20 @@ namespace MVP_Calc_V3
             if (settings.ContainsKey("Mode"))
             {
                 string mode = settings["Mode"];
-                // Apply mode logic (Standard/Programmer)
+                if (mode == "Programmer")
+                {
+                    Programmer_Click(null, null); 
+                }
             }
 
             if (settings.ContainsKey("Base"))
             {
                 int.TryParse(settings["Base"], out int baseValue);
-                // Apply numerical base logic
+                m_calculator.c_Base = baseValue;
+                if(_programmerWindow != null)
+                {
+                    _programmerWindow.SelectedBase = m_calculator.c_Base;
+                }
             }
         }
 
@@ -56,7 +71,7 @@ namespace MVP_Calc_V3
             {
                 { "DigitGrouping", m_calculator.IsDigitGroupingEnabled.ToString() },
                 { "Mode", m_calculator.CurrentMode },
-                { "Base", m_calculator.SelectedBase.ToString() }
+                { "Base", _programmerWindow.SelectedBase.ToString() }
              };
 
             SettingsManager.SaveSettings(settings);
@@ -88,7 +103,16 @@ namespace MVP_Calc_V3
         private void UpdateDisplay()
         {
             m_calculator.ApplyDigitGrouping();
+            UpdateProgrammerMode();
             Display.Text = m_calculator.Display;
+        }
+
+        private void UpdateProgrammerMode()
+        {
+            if (_programmerWindow != null && _programmerWindow.IsLoaded)
+            {
+                _programmerWindow.UpdateBaseDisp();
+            }
         }
 
         private void percent_Click(object sender, RoutedEventArgs e)
@@ -301,6 +325,42 @@ namespace MVP_Calc_V3
 
         private void Programmer_Click(object sender, RoutedEventArgs e)
         {
+            if (m_calculator.CurrentMode == "Standard")
+            {
+                if (_programmerWindow == null || !_programmerWindow.IsLoaded)
+                {
+                    _programmerWindow = new ProgrammerMode(m_calculator);
+
+                    if (_isMainWindowLoaded)
+                    {
+                        _programmerWindow.Owner = this;
+                    }
+
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        _programmerWindow.Owner = this;
+                    }), System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+
+
+                    _programmerWindow.SelectedBase = m_calculator.c_Base;
+
+                    // Position the window to the left of the main calculator
+                    _programmerWindow.Left = this.Left - _programmerWindow.Width;
+                    _programmerWindow.Top = this.Top;
+
+                    _programmerWindow.Show();
+                }
+                else
+                {
+                    _programmerWindow.Show();
+                }
+                m_calculator.CurrentMode = "Programmer";
+            }
+            else
+            {
+                m_calculator.CurrentMode = "Standard";
+                _programmerWindow.Hide();
+            }
 
         }
 

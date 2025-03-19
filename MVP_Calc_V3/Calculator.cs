@@ -17,7 +17,10 @@ namespace MVP_Calc_V3
         private string? _currentOperator;
         private bool _isNewEntry;
         private Stack<double> _memoryStack = new Stack<double>();
+        private const int MaxDisplayLength = 16;
 
+        private int c_base;
+        public int c_Base { get => c_base; set => c_base = value; }
 
         private bool _isDigitGroupingEnabled = false;
         public bool IsDigitGroupingEnabled { get => _isDigitGroupingEnabled; set => _isDigitGroupingEnabled = value; }
@@ -25,21 +28,31 @@ namespace MVP_Calc_V3
         private string currentMode = "Standard";
         public string CurrentMode { get => currentMode; set => currentMode = value; }
 
-        private int selectedBase = 10;
-        public int SelectedBase { get => selectedBase; set => selectedBase = value; }
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _display = "0";
         public string Display
         {
+            //get
+            //{
+            //    if (Math.Abs(_currentValue) >= 1e15 || (Math.Abs(_currentValue) < 1e-4 && _currentValue != 0))
+            //    {
+            //        return _currentValue.ToString("E15").ToUpper(); // Show as scientific notation
+            //    }
+            //    return _currentValue.ToString("G15"); // Show as normal number
+            //}
+            //private set
+            //{
+            //    if (double.TryParse(value, out double num))
+            //    {
+            //        _currentValue = num;
+            //    }
+            //}
+
             get => _display;
-            private set
+            set
             {
                 _display = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Display)));
             }
         }
 
@@ -102,6 +115,7 @@ namespace MVP_Calc_V3
                     _currentValue %= value;
                     break;
             }
+
             Display = _currentValue.ToString();
             _currentOperator = null;
         }

@@ -164,6 +164,9 @@ namespace MVP_Calc_V3
             }
         }
 
+        //-------------------------------------------------------------
+
+
         public void MemoryStore()
         {
             if (double.TryParse(Display, out double value))
@@ -182,7 +185,7 @@ namespace MVP_Calc_V3
             _memory = 0;
         }
 
-        //-------------------------------------------------------------
+
 
         public void MemoryAdd()
         {
@@ -208,9 +211,9 @@ namespace MVP_Calc_V3
             }
         }
 
-        public string MemoryStackDisplay()
+        public Stack<double> MemoryStackDisplay()
         {
-            return string.Join(", ", _memoryStack);
+            return _memoryStack;
         }
 
         //-------------------------------------------------------------

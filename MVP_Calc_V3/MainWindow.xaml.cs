@@ -121,6 +121,7 @@ namespace MVP_Calc_V3
             }
         }
 
+
         private void percent_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.Percentage();
@@ -144,6 +145,7 @@ namespace MVP_Calc_V3
             m_calculator.Reciprocal();
             UpdateDisplay();
         }
+
 
 
 
@@ -173,6 +175,7 @@ namespace MVP_Calc_V3
 
 
 
+
         private void seven_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.EnterDigit('7');
@@ -199,6 +202,7 @@ namespace MVP_Calc_V3
 
 
 
+
         private void four_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.EnterDigit('4');
@@ -222,6 +226,7 @@ namespace MVP_Calc_V3
             m_calculator.EnterOperator("-");
             UpdateDisplay();
         }
+
 
 
 
@@ -277,32 +282,37 @@ namespace MVP_Calc_V3
 
 
 
-        private void MC_Click(object sender, RoutedEventArgs e)
+        private void Mc_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryClear();
             UpdateDisplay();
         }
 
-        private void MPlus_Click(object sender, RoutedEventArgs e)
+        private void MPlus_Click_1(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryAdd();
             m_calculator.MemoryStackPush();
             UpdateDisplay();
         }
 
-        private void MMinus_Click(object sender, RoutedEventArgs e)
+        private void Mminus_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemorySubtract();
             UpdateDisplay();
         }
 
-        private void MR_Click(object sender, RoutedEventArgs e)
+        private void Ms_Click(object sender, RoutedEventArgs e)
         {
             m_calculator.MemoryRecall();
             UpdateDisplay();
         }
 
-
+        private void MemoryShow_Click(object sender, RoutedEventArgs e)
+        {
+            var memoryWindow = new MemoryWindow(m_calculator.MemoryStackDisplay());
+            memoryWindow.MemorySelected += value => Display.Text = value.ToString();
+            memoryWindow.ShowDialog();
+        }
 
         private void DigitGrouping_Click(object sender, RoutedEventArgs e)
         {

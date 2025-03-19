@@ -10,10 +10,45 @@
         Height="780" Width="360" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Loaded="MainWindow_Loaded">
-    <Grid>
-        <Grid Margin="10">
+
+    <Grid Margin="10">
+        <!-- Define 3 Rows for Display, Memory Buttons, and Main Buttons -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Display -->
+            <RowDefinition Height="Auto"/>
+            <!-- Memory Buttons -->
+            <RowDefinition Height="*"/>
+            <!-- Main Buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- Display TextBlock -->
+        <TextBlock Name="Display" Text="{Binding Display}" 
+                   FontSize="24" Height="80" VerticalAlignment="Center"
+                   TextAlignment="Right" Background="White" Padding="10" 
+                   Grid.Row="0"/>
+
+        <!-- Memory Buttons Grid -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="Mc"           Content="MC" Command="{Binding Elements[0][0].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mc_Click"/>
+            <Button Name="Mplus"        Content="M+" Command="{Binding Elements[0][1].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MPlus_Click_1"/>
+            <Button Name="Mminus"       Content="M-" Command="{Binding Elements[0][2].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Mminus_Click"/>
+            <Button Name="Ms"           Content="MS" Command="{Binding Elements[0][3].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Ms_Click"/>
+            <Button Name="MemoryShow"   Content="Mˇ" Command="{Binding Elements[0][4].ClickCommand}" Width="55" Height="60" FontSize="18" Margin="5" Grid.Column="4" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="MemoryShow_Click"/>
+        </Grid>
+
+
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <!-- <RowDefinition Height="Auto"/> -->
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -32,51 +67,45 @@
             </Grid.ColumnDefinitions>
 
             <!-- Display TextBlock -->
-            <TextBlock Name ="Display" Text="{Binding Display}" FontSize="20" Height="80" VerticalAlignment="Center" TextAlignment="Right" Background="White" Padding="10" Grid.Row="0" Grid.ColumnSpan="4"/>
+            <!--TextBlock Name ="Display" Text="{Binding Display}" FontSize="20" Height="80" VerticalAlignment="Center" TextAlignment="Right" Background="White" Padding="10" Grid.Row="0" Grid.ColumnSpan="4"/> -->
 
             <!-- Buttons -->
 
+            <Button Name ="percent" Content="%"       Command="{Binding Elements[1][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="percent_Click"/>
+            <Button Name="sqroot" Content="√"         Command="{Binding Elements[1][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="sqroot_Click"/>
+            <Button Name="squared" Content="x²"       Command="{Binding Elements[1][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="squared_Click"/>
+            <Button Name ="oneDivided" Content="1/x"  Command="{Binding Elements[1][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="oneDivided_Click"/>
 
-            <Button Name="Mc" Content="MC" Command="{Binding Elements[0][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold"/>
-            <Button Name ="Mplus" Content="M+" Command="{Binding Elements[0][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold"/>
-            <Button Name ="Mminus" Content="M-" Command="{Binding Elements[0][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold"/>
-            <Button Name ="Ms" Content="MS" Command="{Binding Elements[0][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="1" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold"/>
-
-            <Button Name ="percent" Content="%"       Command="{Binding Elements[1][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="percent_Click"/>
-            <Button Name="sqroot" Content="√"       Command="{Binding Elements[1][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="sqroot_Click"/>
-            <Button Name="squared" Content="x²" Command="{Binding Elements[1][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="squared_Click"/>
-            <Button Name ="oneDivided" Content="1/x"      Command="{Binding Elements[1][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="oneDivided_Click"/>
-
-            <Button Name="Ce" Content="CE" Command="{Binding Elements[2][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Ce_Click"/>
-            <Button Name="C" Content="C"  Command="{Binding Elements[2][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="C_Click"/>
-            <Button Name="Backspace" Content="⌫" Command="{Binding Elements[2][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Backspace_Click"/>
-            <Button Name="Divide" Content="÷" Command="{Binding Elements[2][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Divide_Click"/>
+            <Button Name="Ce" Content="CE"          Command="{Binding Elements[2][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Ce_Click"/>
+            <Button Name="C" Content="C"            Command="{Binding Elements[2][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="C_Click"/>
+            <Button Name="Backspace" Content="⌫"   Command="{Binding Elements[2][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Backspace_Click"/>
+            <Button Name="Divide" Content="÷"       Command="{Binding Elements[2][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="2" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Divide_Click"/>
 
             <!-- Number Buttons and Operators -->
-            <Button Name="seven" Content="7" Command="{Binding Elements[3][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="seven_Click"/>
-            <Button Name="eight" Content="8" Command="{Binding Elements[3][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="eight_Click"/>
-            <Button Name="nine" Content="9" Command="{Binding Elements[3][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="nine_Click"/>
-            <Button Name="Multiply" Content="×" Command="{Binding Elements[3][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Multiply_Click"/>
+            <Button Name="seven" Content="7"     Command="{Binding Elements[3][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="seven_Click"/>
+            <Button Name="eight" Content="8"     Command="{Binding Elements[3][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="eight_Click"/>
+            <Button Name="nine" Content="9"      Command="{Binding Elements[3][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="nine_Click"/>
+            <Button Name="Multiply" Content="×"  Command="{Binding Elements[3][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="3" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Multiply_Click"/>
 
-            <Button Name="four" Content="4" Command="{Binding Elements[4][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="four_Click"/>
-            <Button Name="five" Content="5" Command="{Binding Elements[4][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="five_Click"/>
-            <Button Name="six" Content="6" Command="{Binding Elements[4][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="six_Click"/>
-            <Button Name="Subtract" Content="-" Command="{Binding Elements[4][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Subtract_Click"/>
+            <Button Name="four" Content="4"     Command="{Binding Elements[4][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="four_Click"/>
+            <Button Name="five" Content="5"     Command="{Binding Elements[4][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="five_Click"/>
+            <Button Name="six" Content="6"      Command="{Binding Elements[4][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="six_Click"/>
+            <Button Name="Subtract" Content="-" Command="{Binding Elements[4][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="4" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Subtract_Click"/>
 
-            <Button Name="one" Content="1" Command="{Binding Elements[5][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="one_Click"/>
-            <Button Name="two" Content="2" Command="{Binding Elements[5][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="two_Click"/>
-            <Button Name="three" Content="3" Command="{Binding Elements[5][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="three_Click"/>
-            <Button Name="Add" Content="+" Command="{Binding Elements[5][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Add_Click"/>
+            <Button Name="one" Content="1"   Command="{Binding Elements[5][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="one_Click"/>
+            <Button Name="two" Content="2"   Command="{Binding Elements[5][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="two_Click"/>
+            <Button Name="three" Content="3" Command="{Binding Elements[5][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="three_Click"/>
+            <Button Name="Add" Content="+"   Command="{Binding Elements[5][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="5" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Add_Click"/>
 
             <!-- 0 Button spanning 2 columns -->
-            <Button Name="Sign" Content="±" Command="{Binding Elements[6][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="7" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Sign_Click"/>
-            <Button Name="zero" Content="0" Command="{Binding Elements[6][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="7" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="zero_Click"/>
-            <Button Name="Dot" Content="." Command="{Binding Elements[6][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="7" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Dot_Click"/>
-            <Button Name="Equals" Content="=" Command="{Binding Elements[6][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="7" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Equals_Click"/>
+            <Button Name="Sign" Content="±"     Command="{Binding Elements[6][0].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="0" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Sign_Click"/>
+            <Button Name="zero" Content="0"     Command="{Binding Elements[6][1].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="1" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="zero_Click"/>
+            <Button Name="Dot" Content="."      Command="{Binding Elements[6][2].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Dot_Click"/>
+            <Button Name="Equals" Content="="   Command="{Binding Elements[6][3].ClickCommand}" Width="70" Height="70" FontSize="20" Margin="5" Grid.Row="6" Grid.Column="3" Background="#FF6D6D6D" Foreground="#FFE0E0E0" FontWeight="Bold" Click="Equals_Click"/>
 
             <Button Name="Programmer" Content="Programmer" Command="{Binding Elements[7][2].ClickCommand}" Width="150" Height="40" FontSize="20" Margin="5" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0" Click="Programmer_Click"/>
 
-            <Menu Grid.Row="8" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0">
+            <Menu Grid.Row="7" Grid.ColumnSpan="2" Background="#FF6D6D6D" Foreground="#FFE0E0E0">
                 <MenuItem Name="File" Header="File" FontSize="20" FontWeight="Bold">
                     <MenuItem Name="Cut" Header="Cut" Click="Cut_Click" Command="{Binding CutCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
                     <MenuItem Name="Copy" Header="Copy" Click="Copy_Click" Command="{Binding CopyCommand}" Background="#FF6D6D6D" Foreground="#FFE0E0E0"/>
@@ -90,7 +119,5 @@
             </Menu>
 
         </Grid>
-
-
     </Grid>
 </Window>

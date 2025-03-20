@@ -49,7 +49,7 @@ namespace MVP_Calc_V3
                 string mode = settings["Mode"];
                 if (mode == "Programmer")
                 {
-                    Programmer_Click(null, null); 
+                    Programmer_Click(null, null);
                 }
             }
 
@@ -57,7 +57,7 @@ namespace MVP_Calc_V3
             {
                 int.TryParse(settings["Base"], out int baseValue);
                 m_calculator.c_Base = baseValue;
-                if(_programmerWindow != null)
+                if (_programmerWindow != null)
                 {
                     _programmerWindow.SelectedBase = m_calculator.c_Base;
                 }
@@ -101,7 +101,7 @@ namespace MVP_Calc_V3
 
         private void UpdateDisplay()
         {
-            if(m_calculator.ApplyDigitGrouping())
+            if (m_calculator.ApplyDigitGrouping())
             {
                 Display.Text = m_calculator.DisplayGrouped;
             }
@@ -403,7 +403,7 @@ namespace MVP_Calc_V3
             {
                 m_calculator.EnterOperator("+");
             }
-            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) 
+            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract)
             {
                 m_calculator.EnterOperator("-");
             }
@@ -411,11 +411,11 @@ namespace MVP_Calc_V3
             {
                 m_calculator.EnterOperator("*");
             }
-            else if (e.Key == Key.Divide || e.Key == Key.Oem2) 
+            else if (e.Key == Key.Divide || e.Key == Key.Oem2)
             {
                 m_calculator.EnterOperator("/");
             }
-            else if (e.Key == Key.Enter || e.Key == Key.Return) 
+            else if (e.Key == Key.Enter || e.Key == Key.Return)
             {
                 m_calculator.Equals();
             }
@@ -427,7 +427,7 @@ namespace MVP_Calc_V3
             {
                 m_calculator.Clear();
             }
-            else if (e.Key == Key.OemComma || e.Key == Key.OemPeriod || e.Key == Key.Decimal) 
+            else if (e.Key == Key.OemComma || e.Key == Key.OemPeriod || e.Key == Key.Decimal)
             {
                 m_calculator.EnterDigit('.');
             }
